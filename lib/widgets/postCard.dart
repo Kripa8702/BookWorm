@@ -16,7 +16,7 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   var userModel;
-  UserApiCalls userApiCalls = new UserApiCalls();
+  UserApiCalls userApiCalls = UserApiCalls();
   bool loading = true;
 
   @override
@@ -43,13 +43,13 @@ class _PostCardState extends State<PostCard> {
       // alignment: Alignment.center,
       height: 40.5.h,
       width: 90.w,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: black,
           // border: Border.all(
           //   color: borderColor
           // ),
           borderRadius: BorderRadius.all(Radius.circular(25))),
-      child: Center(
+      child: const Center(
         child: CircularProgressIndicator(
           color: yellowAccent2,
         ),
@@ -61,7 +61,7 @@ class _PostCardState extends State<PostCard> {
       // alignment: Alignment.center,
       height: 40.5.h,
       width: 90.w,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: black,
           // border: Border.all(
           //   color: borderColor
@@ -73,7 +73,7 @@ class _PostCardState extends State<PostCard> {
           Stack(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(25),
                     topLeft: Radius.circular(25)),
                 child: Image.network(
@@ -91,19 +91,6 @@ class _PostCardState extends State<PostCard> {
                   width: 30.w,
                   blur: 4,
                   color: Colors.white.withOpacity(0.1),
-                  child: Container(
-                    height: 4.5.h,
-                    width: 30.w,
-                    alignment: Alignment.center,
-                    child: Text(
-                      '@${userModel.username}',
-                      style: TextStyle(
-                        color: white,
-                        fontSize: 12.sp,
-                        // fontWeight: FontWeight.w600
-                      ),
-                    ),
-                  ),
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -117,6 +104,19 @@ class _PostCardState extends State<PostCard> {
                   shape: BoxShape.circle,
                   borderRadius: BorderRadius.circular(20),
                   shadowColor: Colors.white.withOpacity(0.24),
+                  child: Container(
+                    height: 4.5.h,
+                    width: 30.w,
+                    alignment: Alignment.center,
+                    child: Text(
+                      '@${userModel.username}',
+                      style: TextStyle(
+                        color: white,
+                        fontSize: 12.sp,
+                        // fontWeight: FontWeight.w600
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Positioned(
@@ -163,9 +163,8 @@ class _PostCardState extends State<PostCard> {
                     height: 5.h,
                     width: 10.w,
                     radius: 10,
-                    child: Icon(
+                    child: const Icon(
                       Icons.favorite,
-                      // color: pinkAccent2,
                     ))
               ],
             ),

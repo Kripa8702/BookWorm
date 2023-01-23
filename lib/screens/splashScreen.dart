@@ -2,6 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:kimber/functions/postApiCalls.dart';
 import 'package:kimber/navigationBar.dart';
+import 'package:kimber/screens/authentication/entryPointScreen.dart';
 import 'package:kimber/utils/colors.dart';
 import 'package:sizer/sizer.dart';
 import 'package:page_transition/page_transition.dart';
@@ -23,13 +24,8 @@ class _SplashScreenState extends State<SplashScreen> {
     // }
     // else{
     var api1 = postApiCalls.getAllPosts();
-    // var api2 = getProductOffers();
-    // var api3 = getAllProducts();
     var list = await api1;
-    // // productCartList = await getCartProducts();
-    // productOffers = await api2;
-    // productOffers = await api3;
-    return Future.value(NavigationBarScreen());
+    return Future.value(EntryPointScreen());
     // }
   }
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "203442651211",
+    "project_id": "kimber-ec38e",
+    "storage_bucket": "kimber-ec38e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:203442651211:android:8e6d08197b380357b5cdce",
+        "android_client_info": {
+          "package_name": "com.example.kimber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "203442651211-vlqrhtmcdvbctoh6qk59mgu3ae6f4iap.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1QoNpjP5ZeUV_Rp--aNpyOn682rDao9w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "203442651211-vlqrhtmcdvbctoh6qk59mgu3ae6f4iap.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

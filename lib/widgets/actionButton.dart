@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kimber/utils/colors.dart';
 import 'package:sizer/sizer.dart';
 
-class ActionButton extends StatelessWidget {
+class ActionButton extends StatefulWidget {
   Function onTap;
   double height;
   double width;
@@ -21,16 +21,21 @@ class ActionButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ActionButton> createState() => _ActionButtonState();
+}
+
+class _ActionButtonState extends State<ActionButton> {
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap(),
+      onTap: widget.onTap(),
       child: Container(
-          height: height,
-          width: width,
+          height: widget.height,
+          width: widget.width,
           alignment: Alignment.center,
           decoration: BoxDecoration(
               // color: Color(0xFF00f7a7),
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 stops: [0.1, 0.9],
@@ -39,17 +44,17 @@ class ActionButton extends StatelessWidget {
                   yellowAccent2,
                 ],
               ),
-              borderRadius: BorderRadius.circular(radius),
+              borderRadius: BorderRadius.circular(widget.radius),
               boxShadow: [
                 BoxShadow(
-                  color: (isGlow ?? true)
+                  color: (widget.isGlow ?? true)
                       ? yellowAccent2.withAlpha(60)
                       : Colors.transparent,
                   blurRadius: 6.0,
                   spreadRadius: 2.0,
                 )
               ]),
-          child: child),
+          child: widget.child),
     );
   }
 }

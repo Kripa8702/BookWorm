@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:kimber/models/postModel.dart';
 import 'package:kimber/utils/colors.dart';
+import 'package:kimber/widgets/kimberLogo.dart';
 import 'package:kimber/widgets/postCard.dart';
 import 'package:kimber/widgets/sideBar.dart';
 import 'package:sidebarx/sidebarx.dart';
@@ -16,8 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final FlutterSecureStorage storage = FlutterSecureStorage(
-      aOptions:  const AndroidOptions(
+  final FlutterSecureStorage storage = const FlutterSecureStorage(
+      aOptions:  AndroidOptions(
         encryptedSharedPreferences: true,
       )
   );
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   getAllPosts() async{
     String? allPosts = await storage.read(key: 'allPosts');
-    var posts = await PostModel.decode(allPosts??"");
+    var posts = PostModel.decode(allPosts??"");
     print(posts);
     setState(() {
       postList = posts;
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               // color: Color(0xFF00f7a7),
-                                gradient: LinearGradient(
+                                gradient: const LinearGradient(
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                   stops: [0.1, 0.9],
@@ -95,18 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 //   ),
                                 // ]
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.menu,
-                              // color: pinkAccent2,
                             )),
                       ),
 
-                      Container(
-                          margin: EdgeInsets.only(top: 1.h, left: 6.5.w),
-                          child: Text(
-                            'Kimber',
-                            style: TextStyle(color: white, fontSize: 28.sp),
-                          )),
+                      KimberLogo()
                     ],
                   ),
                   Expanded(
@@ -114,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     // height: 200,
 
                     child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         itemCount: postList.length,
                         itemBuilder: (context, index) => PostCard(
                            postModel: postList[index],
