@@ -4,10 +4,12 @@ import 'package:kimber/navigationBar.dart';
 import 'package:kimber/screens/homeScreen.dart';
 import 'package:kimber/screens/splashScreen.dart';
 import 'package:kimber/utils/colors.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:sizer/sizer.dart';
 
 Future main() async{
   await dotenv.load(fileName: ".env");
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -27,6 +29,9 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: scaffoldBackground,
             // accentColor: Color(0xFFccf869),
           ),
+          routes: {
+            '/home': (context) => NavigationBarScreen(),
+          },
           home: SplashScreen(),
         );
       }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kimber/functions/userApiCalls.dart';
 import 'package:kimber/models/userModel.dart';
+import 'package:kimber/screens/authentication/pickProfilePictureScreen.dart';
 import 'package:kimber/utils/colors.dart';
 import 'package:kimber/utils/utils.dart';
 import 'package:kimber/widgets/inputField.dart';
@@ -21,31 +22,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  GlobalKey<FormState> _globalFormKey = GlobalKey();
 
   String username = "";
   String email = "";
   String password = "";
   bool loading = false;
 
-  // Uint8List? image;
-  // final ImagePicker _picker = ImagePicker();
-
   UserApiCalls userApiCalls = UserApiCalls();
-
-  // pickImage(ImageSource imageSource) async {
-  //   ImagePicker imagePicker = ImagePicker();
-  //
-  //   XFile? file = await imagePicker.pickImage(source: imageSource);
-  //   print(file?.path);
-  //   if (file != null) {
-  //     Uint8List img = await file.readAsBytes();
-  //     setState(() {
-  //       image = img;
-  //     });
-  //   }
-  //   else
-  //     print("No image selected");
-  // }
 
   signUpUser(String username, String email, String password) async {
     setState(() {
@@ -56,6 +40,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       setState(() {
         loading = false;
       });
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PickProfilePictureScreen(
+                  userId: newUser.userId,
+                )),
+      );
       print("Success");
     } else {
       setState(() {
@@ -96,72 +87,50 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   )),
               Expanded(
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.w),
-                  // height: 80.h,
-                  // width: 80.w,
-                  decoration: BoxDecoration(
-                      color: black, borderRadius: BorderRadius.circular(20)),
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 3.5.h,
-                        ),
-                        //ProfilePic
-                        // Stack(
-                        //   children: [
-                        //     image != null
-                        //         ? CircleAvatar(
-                        //         radius: 50,
-                        //         backgroundImage: MemoryImage(image!)
-                        //     )
-                        //         : const CircleAvatar(
-                        //       radius: 50,
-                        //       child: Icon(
-                        //           Icons.person_outline,
-                        //         size: 50,
-                        //         color: black,
-                        //       ),
-                        //       backgroundColor: borderColor,
-                        //     ),
-                        //     Positioned(
-                        //       bottom: -14,
-                        //       left: 55,
-                        //       child: IconButton(
-                        //         onPressed: () =>
-                        //             pickImage(ImageSource.gallery),
-                        //         icon: const Icon(Icons.add_a_photo,
-                        //         color: darkBlueAccent
-                        //           ,),
-                        //       ),
-                        //     )
-                        //   ],
-                        // ),
+                child: Center(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 2.h, horizontal: 3.w),
+                    // height: 80.h,
+                    // width: 80.w,
+                    decoration: BoxDecoration(
+                        color: black, borderRadius: BorderRadius.circular(20)),
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 3.5.h,
+                          ),
 
-                        //Username
-                        InputField(
-                          controller: usernameController,
-                          fieldType: 'Usename',
-                        ),
+                          Form(
+                              key: _globalFormKey,
+                              child: Column(
+                                children: [
+                                  //Username
+                                  InputField(
+                                    controller: usernameController,
+                                    fieldType: 'Usename',
+                                  ),
 
-                        //Email
-                        InputField(
-                          controller: emailController,
-                          fieldType: 'Email ID',
-                        ),
+                                  //Email
+                                  InputField(
+                                    controller: emailController,
+                                    fieldType: 'Email ID',
+                                  ),
 
-                        //Password
-                        InputField(
-                          controller: passwordController,
-                          fieldType: 'Password',
-                          isObscure: true,
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        )
-                      ],
+                                  //Password
+                                  InputField(
+                                    controller: passwordController,
+                                    fieldType: 'Password',
+                                    isObscure: true,
+                                  ),
+                                ],
+                              )),
+                          SizedBox(
+                            height: 5.h,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -173,17 +142,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   if (!currentFocus.hasPrimaryFocus) {
                     currentFocus.unfocus();
                   }
-
-                  print(usernameController.text);
-                  print(emailController.text);
-                  print(passwordController.text);
-                  signUpUser(usernameController.text, emailController.text,
-                      passwordController.text);
+                  if (_globalFormKey.currentState!.validate()) {
+                    print(usernameController.text);
+                    print(emailController.text);
+                    print(passwordController.text);
+                    signUpUser(usernameController.text, emailController.text,
+                        passwordController.text);
+                  }
                 },
                 child: Container(
                   height: 6.h,
                   alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 3.w),
+                  margin: EdgeInsets.only(bottom: 3.h, left: 3.w, right: 3.w),
                   decoration: BoxDecoration(
                       color: black, borderRadius: BorderRadius.circular(50)),
                   child: loading
@@ -196,12 +166,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         )
                       : Text(
-                          'SignUp',
+                          'Continue',
                           style:
                               TextStyle(color: yellowAccent, fontSize: 16.sp),
                         ),
                 ),
-              )
+              ),
             ],
           ),
         ),

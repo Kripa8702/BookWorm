@@ -6,7 +6,13 @@ class InputField extends StatefulWidget {
   TextEditingController controller;
   String fieldType;
   bool? isObscure = false;
-  InputField({Key? key, required this.controller, required this.fieldType, this.isObscure}) : super(key: key);
+
+  InputField(
+      {Key? key,
+      required this.controller,
+      required this.fieldType,
+      this.isObscure})
+      : super(key: key);
 
   @override
   State<InputField> createState() => _InputFieldState();
@@ -20,34 +26,54 @@ class _InputFieldState extends State<InputField> {
         Container(
             margin: EdgeInsets.only(top: 3.5.h, left: 5.w),
             alignment: Alignment.centerLeft,
-            child: Text( widget.fieldType,
+            child: Text(
+              widget.fieldType,
               style: TextStyle(
                 fontSize: 16.sp,
                 color: white,
               ),
-            )
-        ),
+            )),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 3.w),
-          child: TextField(
+          child: TextFormField(
             controller: widget.controller,
             cursorColor: yellowAccent,
             obscureText: widget.isObscure ?? false,
+            onChanged: (_) => setState(() {}),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'This is a required field';
+              } else if (widget.isObscure ?? false) if (value.length < 10) {
+                return 'Password is too short';
+              }
+              return null;
+            },
             style: TextStyle(
               fontSize: 14.sp,
-                color: yellowAccent,
+              color: yellowAccent,
             ),
             decoration: InputDecoration(
               filled: true,
               fillColor: borderColor,
               isDense: true,
               contentPadding:
-              EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
-              // hintText: "Username",
-              // hintStyle: TextStyle(fontSize: 12.sp, color: black),
-              // TextStyle
+                  EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
               border: InputBorder.none,
               enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(
+                  width: 2.0,
+                  color: black,
+                ), // BorderSide
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(
+                  width: 2.0,
+                  color: black,
+                ), // BorderSide
+              ),
+              errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(
                   width: 2.0,

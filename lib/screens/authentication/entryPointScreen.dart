@@ -36,6 +36,13 @@ class _EntryPointScreenState extends State<EntryPointScreen> {
                       yellowAccent2,
                     ],
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: borderColor.withAlpha(60),
+                      blurRadius: 10.0,
+                      spreadRadius: 4.0,
+                    ),
+                  ],
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(40),
                       bottomRight: Radius.circular(40)),
@@ -84,23 +91,25 @@ class Button extends StatelessWidget {
         );
       },
       child: Container(
-          height: 5.h,
+          height: 6.h,
           width: 70.w,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            // color: Color(0xFF00f7a7),
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              stops: [0.1, 0.9],
-              colors: [
-                blue,
-                yellowAccent2,
-              ],
-            ),
+            color: scaffoldBackground,
+            // gradient: const LinearGradient(
+            //   begin: Alignment.topLeft,
+            //   end: Alignment.bottomRight,
+            //   stops: [0.1, 0.9],
+            //   colors: [
+            //     blue,
+            //     yellowAccent2,
+            //   ],
+            // ),
+            border: Border.all(color: yellowAccent, width: 2.0),
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Text(text, style: TextStyle(fontSize: 16.sp))),
+          child: Text(text,
+              style: TextStyle(fontSize: 16.sp, color: yellowAccent))),
     ));
   }
 }

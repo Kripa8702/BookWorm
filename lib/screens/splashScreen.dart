@@ -1,9 +1,9 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:kimber/functions/postApiCalls.dart';
-import 'package:kimber/navigationBar.dart';
 import 'package:kimber/screens/authentication/entryPointScreen.dart';
 import 'package:kimber/utils/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -16,6 +16,12 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   PostApiCalls postApiCalls = new PostApiCalls();
+
+  isUserLoggedIn() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var status = prefs.getBool('isLoggedIn') ?? false;
+    return status;
+  }
 
   Future<Widget> loadFromFuture() async {
     // var state = await isUserLoggedIn();
