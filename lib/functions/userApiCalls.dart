@@ -5,11 +5,20 @@ import 'package:http/http.dart' as http;
 import 'package:kimber/models/userModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+AndroidOptions _getAndroidOptions() => const AndroidOptions(
+  encryptedSharedPreferences: true,
+);
+
+final _storage = FlutterSecureStorage(
+    aOptions: _getAndroidOptions()
+);
 
 class UserApiCalls {
   String userApiUrl = dotenv.env['userApiUrl'].toString();
 
   registerUser(String username, String email, String password) async {
+    var tempList = [];
+
     try {
       Map data = {
         "username": username,
@@ -35,6 +44,12 @@ class UserApiCalls {
       if (response.statusCode == 200) {
         UserModel userModel = UserModel.fromJson(jsonData);
         prefs?.setBool("isLoggedIn", true);
+
+        tempList.add(userModel);
+
+        final String encodedData = UserModel.encode(tempList);
+        await _storage.write(key: 'currentUser', value: encodedData);
+
         return userModel;
       }
       return null;
@@ -45,6 +60,8 @@ class UserApiCalls {
   }
 
   loginUser(String email, String password) async {
+    var tempList = [];
+
     try {
       Map data = {
         "email": email,
@@ -68,6 +85,12 @@ class UserApiCalls {
       if (response.statusCode == 200) {
         UserModel userModel = UserModel.fromJson(jsonData);
         prefs?.setBool("isLoggedIn", true);
+
+        tempList.add(userModel);
+
+        final String encodedData = UserModel.encode(tempList);
+        await _storage.write(key: 'currentUser', value: encodedData);
+
         return userModel;
       }
       return null;

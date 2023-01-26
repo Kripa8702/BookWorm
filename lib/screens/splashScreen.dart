@@ -1,8 +1,10 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:kimber/functions/postApiCalls.dart';
+import 'package:kimber/navigationBar.dart';
 import 'package:kimber/screens/authentication/entryPointScreen.dart';
 import 'package:kimber/utils/colors.dart';
+import 'package:kimber/widgets/kimberLogo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:page_transition/page_transition.dart';
@@ -24,46 +26,32 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<Widget> loadFromFuture() async {
-    // var state = await isUserLoggedIn();
-    // if(status == false){
-    //   return Future.value(LoginOrSignUpScreen(route: '/home'));
-    // }
-    // else{
+    var state = await isUserLoggedIn();
+    if(state == false){
+      return Future.value(EntryPointScreen());
+    }
+    else{
     var api1 = postApiCalls.getAllPosts();
     var list = await api1;
     return Future.value(EntryPointScreen());
-    // }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [
-          blue,
-          yellowAccent2,
-        ],
-      )),
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: black,
+      body: AnimatedSplashScreen.withScreenFunction(
         backgroundColor: Colors.transparent,
-        body: AnimatedSplashScreen.withScreenFunction(
-          backgroundColor: Colors.transparent,
-          splash: Center(
-            child: Text(
-              'Kimber',
-              style: TextStyle(fontSize: 35.sp),
-            ),
-          ),
-          splashIconSize: 75.w,
-          screenFunction: () async {
-            return loadFromFuture();
-          },
-          splashTransition: SplashTransition.fadeTransition,
-          pageTransitionType: PageTransitionType.fade,
+        splash: Center(
+          child: KimberLogo(fontSize: 35.sp),
         ),
+        splashIconSize: 75.w,
+        screenFunction: () async {
+          return loadFromFuture();
+        },
+        splashTransition: SplashTransition.fadeTransition,
+        pageTransitionType: PageTransitionType.fade,
       ),
     );
   }

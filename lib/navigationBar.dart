@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kimber/screens/homeScreen.dart';
+import 'package:kimber/screens/navigation/homeScreen.dart';
+import 'package:kimber/screens/navigation/profileScreen.dart';
 import 'package:kimber/utils/colors.dart';
 import 'package:sizer/sizer.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
@@ -14,7 +15,7 @@ class NavigationBarScreen extends StatefulWidget {
 class _NavigationBarScreenState extends State<NavigationBarScreen> {
   var selected = 0;
   late PageController pageController;
-  var pages = [HomeScreen(), Text('home'), Text('home'), Text('home')];
+  var pages = [HomeScreen(), Text('home'), Text('home'), ProfileScreen()];
 
   @override
   void initState() {
@@ -43,14 +44,14 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                   Icons.home_filled,
                 ),
                 // backgroundColor: Colors.amber,
-                selectedColor: yellowAccent,
+                selectedColor: blueAccent,
                 title: const Text('Home')),
           AnimatedBarItems(
               icon: const Icon(
                 Icons.search,
               ),
               // backgroundColor: Colors.amber,
-              selectedColor: yellowAccent,
+              selectedColor: blueAccent,
               title: const Text('Search')),
 
           AnimatedBarItems(
@@ -58,14 +59,14 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                 Icons.style,
               ),
               // backgroundColor: Colors.amber,
-              selectedColor: yellowAccent,
+              selectedColor: blueAccent,
               title: const Text('Home')),
 
             AnimatedBarItems(
               icon: const Icon(
                 Icons.person,
               ),
-              selectedColor: yellowAccent,
+              selectedColor: blueAccent,
               title: const Text('Profile')),
         ],
         padding: EdgeInsets.only(top: 1.h),
@@ -94,7 +95,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
           size: 35,
           color: black
             ,),
-          backgroundColor: yellowAccent,
+          backgroundColor: blueAccent,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked
     );

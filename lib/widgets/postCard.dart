@@ -51,7 +51,7 @@ class _PostCardState extends State<PostCard> {
           borderRadius: BorderRadius.all(Radius.circular(25))),
       child: const Center(
         child: CircularProgressIndicator(
-          color: yellowAccent2,
+          color: greenAccent,
         ),
       ),
     )
@@ -59,7 +59,7 @@ class _PostCardState extends State<PostCard> {
     Container(
       margin: EdgeInsets.symmetric(vertical: 1.h, horizontal: 5.w),
       // alignment: Alignment.center,
-      height: 40.5.h,
+      height: 38.h,
       width: 90.w,
       decoration: const BoxDecoration(
           color: black,
@@ -138,7 +138,7 @@ class _PostCardState extends State<PostCard> {
           Container(
             margin: EdgeInsets.symmetric(
               horizontal: 5.w,
-              // vertical: 1.h
+              vertical: 1.5.h
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -149,13 +149,13 @@ class _PostCardState extends State<PostCard> {
                   children: [
                     Text(
                       widget.postModel.label??"",
-                      style: TextStyle(color: white, fontSize: 18.sp),
+                      style: TextStyle(color: white, fontSize: 16.sp),
                     ),
-                    Text(
-                      widget.postModel.description??"",
-                      style: TextStyle(
-                          color: yellowAccent, fontSize: 12.sp),
-                    ),
+                    // Text(
+                    //   widget.postModel.description??"",
+                    //   style: TextStyle(
+                    //       color: greenAccent, fontSize: 12.sp),
+                    // ),
                   ],
                 ),
                 //TODO: Like
@@ -164,7 +164,8 @@ class _PostCardState extends State<PostCard> {
                     width: 10.w,
                     radius: 10,
                     child: const Icon(
-                      Icons.favorite,
+                      Icons.favorite_border_rounded,
+                      color: blueAccent,
                     ))
               ],
             ),

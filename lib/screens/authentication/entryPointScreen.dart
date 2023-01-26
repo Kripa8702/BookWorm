@@ -14,6 +14,23 @@ class EntryPointScreen extends StatefulWidget {
 }
 
 class _EntryPointScreenState extends State<EntryPointScreen> {
+  double opacity = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    changeOpacity();
+  }
+
+  changeOpacity() {
+    Future.delayed(Duration(milliseconds: 1300), () {
+      setState(() {
+        opacity = 1.0;
+        changeOpacity();
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,49 +38,60 @@ class _EntryPointScreenState extends State<EntryPointScreen> {
         body: SingleChildScrollView(
           child: Column(children: [
             Container(
-                height: 60.h,
-                width: 100.w,
-                padding: EdgeInsets.only(top: 45.h),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  // color: Color(0xFF00f7a7),
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: [0.1, 0.9],
-                    colors: [
-                      blue,
-                      yellowAccent2,
-                    ],
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: borderColor.withAlpha(60),
-                      blurRadius: 10.0,
-                      spreadRadius: 4.0,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(40),
-                      bottomRight: Radius.circular(40)),
-                ),
+                padding: EdgeInsets.only(top: 45.h, left: 10.w, right: 20.w),
+                alignment: Alignment.centerLeft,
                 child: Text(
-                  'Kimber',
-                  style: TextStyle(color: black, fontSize: 28.sp),
+                  'Welcome to Kimber.',
+                  style: TextStyle(color: greyishWhite, fontSize: 28.sp),
                 )),
+            AnimatedOpacity(
+              opacity: opacity,
+              duration: const Duration(milliseconds: 1300),
+              curve: Curves.decelerate,
+              child: Container(
+                  padding: EdgeInsets.only(top: 1.h, left: 10.w, right: 10.w),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'We appreciate offensive content from highly depressive individuals.',
+                    style: TextStyle(color: greyishWhite, fontSize: 14.sp),
+                  )),
+            ),
             SizedBox(
               height: 10.h,
             ),
             Button(
               nextScreen: SignUpScreen(),
-              text: 'SignUp',
+              text: 'Create new account',
             ),
             SizedBox(
-              height: 5.h,
+              height: 3.h,
             ),
-            Button(
-              nextScreen: LoginScreen(),
-              text: 'Login',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  // padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Text(
+                    'Already have an account?',
+                    style: TextStyle(color: greyishWhite, fontSize: 12.sp),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  ),
+                  child: Container(
+                    // padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      ' Log in.',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: greenAccent, fontSize: 12.sp),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ]),
         ));
@@ -92,24 +120,15 @@ class Button extends StatelessWidget {
       },
       child: Container(
           height: 6.h,
-          width: 70.w,
+          width: 80.w,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: scaffoldBackground,
-            // gradient: const LinearGradient(
-            //   begin: Alignment.topLeft,
-            //   end: Alignment.bottomRight,
-            //   stops: [0.1, 0.9],
-            //   colors: [
-            //     blue,
-            //     yellowAccent2,
-            //   ],
-            // ),
-            border: Border.all(color: yellowAccent, width: 2.0),
+            // color: darkblue,
+            gradient: gradient,
+            // border: Border.all(color: greyishWhite, width: 2.0),
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Text(text,
-              style: TextStyle(fontSize: 16.sp, color: yellowAccent))),
+          child: Text(text, style: TextStyle(fontSize: 16.sp, color: black))),
     ));
   }
 }

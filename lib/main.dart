@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kimber/navigationBar.dart';
-import 'package:kimber/screens/homeScreen.dart';
+import 'package:kimber/screens/navigation/homeScreen.dart';
 import 'package:kimber/screens/splashScreen.dart';
 import 'package:kimber/utils/colors.dart';
 import 'package:firebase_core/firebase_core.dart';

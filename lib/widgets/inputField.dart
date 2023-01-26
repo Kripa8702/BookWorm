@@ -24,20 +24,20 @@ class _InputFieldState extends State<InputField> {
     return Column(
       children: [
         Container(
-            margin: EdgeInsets.only(top: 3.5.h, left: 5.w),
+            margin: EdgeInsets.only(top: 3.h, left: 5.w),
             alignment: Alignment.centerLeft,
             child: Text(
               widget.fieldType,
               style: TextStyle(
                 fontSize: 16.sp,
-                color: white,
+                color: greenAccent,
               ),
             )),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 3.w),
           child: TextFormField(
             controller: widget.controller,
-            cursorColor: yellowAccent,
+            cursorColor: greenAccent,
             obscureText: widget.isObscure ?? false,
             onChanged: (_) => setState(() {}),
             validator: (value) {
@@ -50,7 +50,7 @@ class _InputFieldState extends State<InputField> {
             },
             style: TextStyle(
               fontSize: 14.sp,
-              color: yellowAccent,
+              color: greenAccent,
             ),
             decoration: InputDecoration(
               filled: true,
@@ -85,7 +85,7 @@ class _InputFieldState extends State<InputField> {
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(
                   width: 2.0,
-                  color: yellowAccent,
+                  color: greenAccent,
                 ),
               ),
             ),

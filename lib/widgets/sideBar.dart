@@ -13,11 +13,11 @@ class SideBar extends StatelessWidget {
 
     return SidebarX(
       controller: controller,
-
+      animationDuration: Duration(milliseconds: 500),
       theme: SidebarXTheme(
-        margin: EdgeInsets.only(top: 5.h, bottom: 10.h),
+        margin: EdgeInsets.only(top: 8.h, bottom: 10.h),
         decoration: BoxDecoration(
-          color: black,
+          color: darkblue,
           borderRadius: BorderRadius.circular(20),
         ),
         // hoverColor: borderColor,
@@ -26,18 +26,12 @@ class SideBar extends StatelessWidget {
         itemTextPadding: const EdgeInsets.only(left: 30),
         selectedItemTextPadding: const EdgeInsets.only(left: 30),
         itemDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: black),
+          // borderRadius: BorderRadius.circular(10),
+          // border: Border.all(color: black),
         ),
         selectedItemDecoration: BoxDecoration(
-          color: yellowAccent,
+          color: blueAccent,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: yellowAccent.withOpacity(0.37),
-          ),
-          // gradient: const LinearGradient(
-          //   colors: [accentCanvasColor, canvasColor],
-          // ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.28),
@@ -56,9 +50,9 @@ class SideBar extends StatelessWidget {
       ),
       extendedTheme: SidebarXTheme(
         width: 50.w,
-        margin: EdgeInsets.only(top: 5.h, bottom: 10.h),
+        margin: EdgeInsets.only(top: 8.h, bottom: 10.h),
         decoration: BoxDecoration(
-          color: black,
+          color: darkblue,
             borderRadius: BorderRadius.circular(20)
         ),
       ),
@@ -69,19 +63,20 @@ class SideBar extends StatelessWidget {
           )),
 
       footerDivider: Container(
-          margin: EdgeInsets.only(bottom: 5.h,left: 2.w, right: 2.w),
-          child: Divider(color:  borderColor, height: 1)),
+          margin: EdgeInsets.only(bottom: 3.h,left: 2.w, right: 2.w),
+          child: Divider(color: borderColor, height: 1)),
       headerBuilder: (context,extended){
         return Container(
           margin: EdgeInsets.only(top: 2.h),
 
-          child: const  SizedBox(
+          child:  SizedBox(
             height: 100,
             child: CircleAvatar(
-              child: Icon(Icons.person,size: 25,color: Colors.white,),
-              backgroundColor: borderColor,
-              radius: 25,
-            )
+              radius: 30,
+              child: Image.asset("assets/icons/user.png",
+                height: 4.h,),
+              backgroundColor: black,
+            ),
 
           ),
         );
@@ -95,10 +90,11 @@ class SideBar extends StatelessWidget {
               controller.toggleExtended();
             },
             child: SizedBox(
-              height: 20,
+              height: 2.h,
+              width: 10.w,
               child: controller.extended?
-              Icon(Icons.arrow_back_ios_new,color: Colors.white,)
-              : Icon(Icons.arrow_forward_ios,color: Colors.white,),
+              Icon(Icons.arrow_back_ios_new,color: black,)
+              : Icon(Icons.arrow_forward_ios,color: black,),
             ),
           ),
         );
@@ -122,10 +118,6 @@ class SideBar extends StatelessWidget {
         const SidebarXItem(
           icon: Icons.favorite,
           label: 'Favorites',
-        ),
-        const SidebarXItem(
-          iconWidget: FlutterLogo(size: 20),
-          label: 'Flutter',
         ),
       ],
     );
