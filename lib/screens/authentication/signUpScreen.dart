@@ -1,14 +1,15 @@
 import 'dart:convert';
 
+import 'package:book_worm/firebaseResources/authMethods.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kimber/functions/userApiCalls.dart';
-import 'package:kimber/models/userModel.dart';
-import 'package:kimber/screens/authentication/pickProfilePictureScreen.dart';
-import 'package:kimber/utils/colors.dart';
-import 'package:kimber/utils/utils.dart';
-import 'package:kimber/widgets/inputField.dart';
+import 'package:book_worm/functions/userApiCalls.dart';
+import 'package:book_worm/models/userModel.dart';
+import 'package:book_worm/screens/authentication/pickProfilePictureScreen.dart';
+import 'package:book_worm/utils/colors.dart';
+import 'package:book_worm/utils/utils.dart';
+import 'package:book_worm/widgets/inputField.dart';
 import 'package:sizer/sizer.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -22,73 +23,64 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmpasswordController = TextEditingController();
   GlobalKey<FormState> _globalFormKey = GlobalKey();
 
   String username = "";
   String email = "";
   String password = "";
   bool loading = false;
+  Uint8List? image;
 
-  UserApiCalls userApiCalls = UserApiCalls();
+  // selectImage() async {
+  //   Uint8List img = await pickImage(ImageSource.gallery);
+  //   setState(() {
+  //     image = img;
+  //   });
+  // }
 
-  signUpUser(String username, String email, String password) async {
+  signUpUser() async {
     setState(() {
       loading = true;
     });
-    var newUser = await userApiCalls.registerUser(username, email, password);
-    if (newUser != null) {
-      setState(() {
-        loading = false;
-      });
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => PickProfilePictureScreen(
-                  userId: newUser.userId,
-                )),
-      );
-      print("Success");
+    String res = await AuthMethods().signUp(
+        email: emailController.text,
+        username: usernameController.text,
+        password: passwordController.text,
+    );
+    print(res);
+
+    setState(() {
+      loading = false;
+    });
+
+    if (res != "success") {
+      showSnackBar(res, context);
     } else {
-      setState(() {
-        loading = false;
-      });
-      showSnackBar("Something went wrong", context);
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false);
+
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: black,
+      backgroundColor: white,
       body: SafeArea(
         child: Column(
           children: [
             Container(
-                margin: EdgeInsets.only(top: 3.h, left: 5.w),
+                margin: EdgeInsets.only(top: 10.h, left: 6.w),
                 alignment: Alignment.centerLeft,
-                child: Row(
-                  children: [
-                    Text(
-                      'Hello ',
-                      style: TextStyle(
-                        fontSize: 32.sp,
-                        color: greyishWhite,
-                      ),
-                    ),
-                   Image.asset(
-                     'assets/icons/hello.png',
-                   height: 6.h,)
-                  ],
+                child: Text(
+                  'Sign Up ',
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    color: black,
+                    fontWeight: FontWeight.bold
+                  ),
                 )),
-            Container(
-              margin: EdgeInsets.only(left: 5.w),
-              alignment: Alignment.centerLeft,
-              child: Text("Please enter your details to continue",
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  color: greyishWhite,
-                ),),
-            ),
             Expanded(
               child: Container(
                 margin: EdgeInsets.symmetric(vertical: 2.h, horizontal: 3.w),
@@ -96,10 +88,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   physics: BouncingScrollPhysics(),
                   child: Column(
                     children: [
+
                       SizedBox(
                         height: 3.5.h,
                       ),
-
                       Form(
                           key: _globalFormKey,
                           child: Column(
@@ -107,13 +99,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               //Username
                               InputField(
                                 controller: usernameController,
-                                fieldType: 'Username',
+                                fieldType: 'Name',
+                                hint: "Enter full name",
+                                textCapitalization: TextCapitalization.sentences,
                               ),
 
                               //Email
                               InputField(
                                 controller: emailController,
                                 fieldType: 'Email ID',
+                                hint: "Enter email address",
+
                               ),
 
                               //Password
@@ -121,6 +117,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 controller: passwordController,
                                 fieldType: 'Password',
                                 isObscure: true,
+                                hint: "Enter password",
+
+                              ),
+                              //Password
+                              InputField(
+                                controller: confirmpasswordController,
+                                fieldType: 'Confirm Password',
+                                isObscure: true,
+                                hint: "Re-enter password",
+
                               ),
                             ],
                           )),
@@ -142,8 +148,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 if (_globalFormKey.currentState!.validate()) {
                   print(usernameController.text);
                   print(emailController.text);
-                  signUpUser(usernameController.text, emailController.text,
-                      passwordController.text);
+                  signUpUser();
                 }
               },
               child: Container(
@@ -151,20 +156,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(bottom: 3.h, left: 8.w, right: 8.w),
                 decoration: BoxDecoration(
-                    color: greenAccent, borderRadius: BorderRadius.circular(50)),
+                    color: blueAccent, borderRadius: BorderRadius.circular(10)),
                 child: loading
                     ? Container(
                         height: 2.2.h,
                         width: 2.2.h,
                         child: const CircularProgressIndicator(
-                          color: darkblue,
+                          color: white,
                           strokeWidth: 3.0,
                         ),
                       )
                     : Text(
-                        'Continue',
+                        'Sign Up',
                         style:
-                            TextStyle(color: darkblue, fontSize: 16.sp),
+                            TextStyle(color: white, fontSize: 13.sp,
+                            fontWeight: FontWeight.bold),
                       ),
               ),
             ),

@@ -1,9 +1,20 @@
+import 'package:book_worm/firebaseResources/firebasePushNotificationMethods.dart';
+import 'package:book_worm/models/userModel.dart';
+import 'package:book_worm/providers/userProvider.dart';
+import 'package:book_worm/screens/navigation/addPostScreen.dart';
+import 'package:book_worm/screens/navigation/chatScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:kimber/screens/navigation/homeScreen.dart';
-import 'package:kimber/screens/navigation/profileScreen.dart';
-import 'package:kimber/utils/colors.dart';
+import 'package:book_worm/screens/navigation/homeScreen.dart';
+import 'package:book_worm/utils/colors.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:stylish_bottom_bar/model/bar_items.dart';
+import 'package:stylish_bottom_bar/model/bar_items.dart';
+import 'package:stylish_bottom_bar/model/bar_items.dart';
+import 'package:stylish_bottom_bar/model/bar_items.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
+
+import 'screens/navigation/allChatsScreen.dart';
 
 class NavigationBarScreen extends StatefulWidget {
   const NavigationBarScreen({Key? key}) : super(key: key);
@@ -15,12 +26,25 @@ class NavigationBarScreen extends StatefulWidget {
 class _NavigationBarScreenState extends State<NavigationBarScreen> {
   var selected = 0;
   late PageController pageController;
-  var pages = [HomeScreen(), Text('home'), Text('home'), ProfileScreen()];
+  var pages = [
+    const HomeScreen(),
+    const Text('home'),
+    const AllChatsScreen(),
+    const Text('home'),
+  ];
 
   @override
-  void initState() {
+  initState() {
     super.initState();
+
     pageController = PageController();
+    addData();
+  }
+
+  addData() async {
+    UserProvider userProvider = Provider.of(context, listen: false);
+    await userProvider.refreshUser();
+    await FirebaseNotificationMethods().initNotification(context);
   }
 
   @override
@@ -32,72 +56,83 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
-      body: PageView(
-        controller: pageController,
-        children: pages,
-      ),
-      bottomNavigationBar: StylishBottomBar(
-        items: [
-          AnimatedBarItems(
+        extendBody: true,
+        body: PageView(
+          controller: pageController,
+          children: pages,
+        ),
+        bottomNavigationBar: StylishBottomBar(
+          option: AnimatedBarOptions(
+            padding: EdgeInsets.all(8),
+            // iconSize: 32,
+            barAnimation: BarAnimation.fade,
+            iconStyle: IconStyle.animated,
+            // opacity: 0.3,
+          ),
+          items: [
+            BottomBarItem(
                 icon: const Icon(
                   Icons.home_filled,
                 ),
+                unSelectedColor: black,
                 // backgroundColor: Colors.amber,
-                selectedColor: blueAccent,
+                selectedColor: darkBlueAccent,
                 title: const Text('Home')),
-          AnimatedBarItems(
-              icon: const Icon(
-                Icons.search,
-              ),
-              // backgroundColor: Colors.amber,
-              selectedColor: blueAccent,
-              title: const Text('Search')),
+            BottomBarItem(
+                icon: const Icon(
+                  Icons.search,
+                ),
+                // backgroundColor: Colors.amber,
+                selectedColor: darkBlueAccent,
+                unSelectedColor: black,
+                title: const Text('Explore')),
+            BottomBarItem(
+                icon: const Icon(
+                  Icons.chat_bubble_rounded,
+                ),
+                selectedColor: darkBlueAccent,
+                unSelectedColor: black,
+                title: const Text('Chat')),
+            BottomBarItem(
+                icon: const Icon(
+                  Icons.person,
+                ),
+                // backgroundColor: Colors.amber,
+                selectedColor: darkBlueAccent,
+                unSelectedColor: black,
+                title: const Text('Profile')),
 
-          AnimatedBarItems(
-              icon: const Icon(
-                Icons.style,
-              ),
-              // backgroundColor: Colors.amber,
-              selectedColor: blueAccent,
-              title: const Text('Home')),
-
-            AnimatedBarItems(
-              icon: const Icon(
-                Icons.person,
-              ),
-              selectedColor: blueAccent,
-              title: const Text('Profile')),
-        ],
-        padding: EdgeInsets.only(top: 1.h),
-        backgroundColor: black,
-        unselectedIconColor: white,
-        elevation: 200,
-        fabLocation: StylishBarFabLocation.center,
-        hasNotch: true,
-        // iconStyle: IconStyle.animated,
-        // iconSize: 32,
-        barStyle: BubbleBarStyle.horizotnal,
-        barAnimation: BarAnimation.liquid,
-        bubbleFillStyle: BubbleFillStyle.fill,
-        opacity: 0.3,
-        currentIndex: selected,
-        onTap: (index) {
-          setState(() {
-            selected = index!;
-            pageController.jumpToPage(index);
-          });
-        },
-      ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: const Icon(Icons.add_rounded,
-          size: 35,
-          color: black
-            ,),
-          backgroundColor: blueAccent,
+          ],
+          backgroundColor: greenAccent,
+          elevation: 200,
+          fabLocation: StylishBarFabLocation.center,
+          hasNotch: true,
+          // iconStyle: IconStyle.animated,
+          // iconSize: 32,
+          currentIndex: selected,
+          onTap: (index) {
+            setState(() {
+              selected = index!;
+              pageController.jumpToPage(index);
+            });
+          },
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked
-    );
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const AddPostScreen(),
+              ),
+            );
+          },
+          backgroundColor: blueAccent,
+          child: const Icon(
+            Icons.add_rounded,
+            size: 35,
+            color: black,
+          ),
+        ),
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.centerDocked);
   }
 }

@@ -1,60 +1,73 @@
-import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostModel {
-  String userId;
-  String postId;
-  String picUrl;
-  String? label;
-  String? description;
-  String datePublished;
-  List<String>? likes;
-  List<String>? tags;
+  final String description;
+  final String title;
+  final String uid;
+  final String username;
+  final String postId;
+  final String genre;
+  final String postUrl;
 
-  PostModel({
-    required this.userId,
+  final bool exchange;
+  final bool sell;
+  final bool rent;
+
+  const PostModel({
+    required this.description,
+    required this.title,
+    required this.uid,
+    required this.username,
     required this.postId,
-    required this.picUrl,
-    required this.datePublished,
-    this.label,
-    this.description,
-    this.likes,
-    this.tags,
+    required this.genre,
+    required this.postUrl,
+    required this.exchange,
+    required this.sell,
+    required this.rent,
   });
+
+  static PostModel fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+
+    return PostModel(
+        description: snapshot["description"],
+        title: snapshot["title"],
+        uid: snapshot["uid"],
+        postId: snapshot["postId"],
+        genre: snapshot["genre"],
+        username: snapshot["username"],
+        postUrl: snapshot['postUrl'],
+        exchange: snapshot['exchange'],
+        sell: snapshot['sell'],
+        rent: snapshot['rent']);
+  }
+
+
+  Map<String, dynamic> toJson() => {
+        "description": description,
+        "title": title,
+        "uid": uid,
+        "username": username,
+        "postId": postId,
+        "genre": genre,
+        'postUrl': postUrl,
+        'exchange': exchange,
+        'sell': sell,
+        'rent': rent
+      };
 
   factory PostModel.fromJson(Map<String, dynamic> jsonData) {
     return PostModel(
-      userId: jsonData["userId"] != null ? jsonData["userId"] : "NA",
-      postId: jsonData["postId"] != null ? jsonData["postId"] : "NA",
-      picUrl: jsonData["picUrl"] != null ? jsonData["picUrl"] : "NA",
-      datePublished:
-          jsonData["datePublished"] != null ? jsonData["datePublished"] : "NA",
-      label: jsonData["label"] != null ? jsonData["label"] : "NA",
-      description:
-          jsonData["description"] != null ? jsonData["description"] : "NA",
-      likes: List<String>.from(jsonData["likes"]??[]) ,
-      tags: List<String>.from(jsonData["tags"]??[]) ,
-    );
+        description: jsonData["description"],
+        title: jsonData["title"],
+        uid: jsonData["uid"],
+        postId: jsonData["postId"],
+        genre: jsonData["genre"],
+        username: jsonData["username"],
+        postUrl: jsonData['postUrl'],
+        exchange: jsonData['exchange'],
+        sell: jsonData['sell'],
+        rent: jsonData['rent']);
   }
 
-  static Map<String, dynamic> toMap(PostModel postModel) => {
-    'userId': postModel.userId,
-    'postId': postModel.postId,
-    'picUrl': postModel.picUrl,
-    'datePublished': postModel.datePublished,
-    'label': postModel.label,
-    'description': postModel.description,
-    'likes': postModel.likes,
-    'tags': postModel.tags,
-  };
-
-  static String encode(var posts) => json.encode(
-    posts
-        .map<Map<String, dynamic>>((post) => PostModel.toMap(post))
-        .toList(),
-  );
-
-  static List<PostModel> decode(String posts) =>
-      (json.decode(posts) as List<dynamic>)
-          .map<PostModel>((post) => PostModel.fromJson(post))
-          .toList();
 }

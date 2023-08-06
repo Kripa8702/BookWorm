@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kimber/screens/authentication/loginScreen.dart';
-import 'package:kimber/screens/authentication/signUpScreen.dart';
-import 'package:kimber/utils/colors.dart';
-import 'package:kimber/widgets/actionButton.dart';
-import 'package:kimber/widgets/kimberLogo.dart';
+import 'package:book_worm/screens/authentication/loginScreen.dart';
+import 'package:book_worm/screens/authentication/signUpScreen.dart';
+import 'package:book_worm/utils/colors.dart';
+import 'package:book_worm/widgets/actionButton.dart';
 import 'package:sizer/sizer.dart';
 
 class EntryPointScreen extends StatefulWidget {
@@ -34,15 +33,32 @@ class _EntryPointScreenState extends State<EntryPointScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: black,
+        backgroundColor: white,
         body: SingleChildScrollView(
-          child: Column(children: [
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
             Container(
-                padding: EdgeInsets.only(top: 45.h, left: 10.w, right: 20.w),
+              margin: EdgeInsets.symmetric(horizontal: 10.w),
+              alignment: Alignment.centerLeft,
+              height: 20.h,
+              child: Image.asset(
+                'assets/icons/Logo.png',
+                ),
+            ),
+            Container(
+              // margin: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
+              height: 40.h,
+              child: Image.asset(
+                'assets/icons/Frame.png',
+                height: 7.h,),
+            ),
+            Container(
+                padding: EdgeInsets.only(left: 10.w, right: 20.w),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Welcome to Kimber.',
-                  style: TextStyle(color: greyishWhite, fontSize: 28.sp),
+                  'Welcome to BookWorm.',
+                  style: TextStyle(color: black, fontSize: 28.sp, fontWeight: FontWeight.bold),
                 )),
             AnimatedOpacity(
               opacity: opacity,
@@ -52,19 +68,19 @@ class _EntryPointScreenState extends State<EntryPointScreen> {
                   padding: EdgeInsets.only(top: 1.h, left: 10.w, right: 10.w),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'We appreciate offensive content from highly depressive individuals.',
-                    style: TextStyle(color: greyishWhite, fontSize: 14.sp),
+                    'A platform that brings together book lovers to share their reviews and exchange books',
+                    style: TextStyle(color: black, fontSize: 14.sp),
                   )),
             ),
             SizedBox(
-              height: 10.h,
+              height: 7.h,
             ),
             Button(
               nextScreen: SignUpScreen(),
-              text: 'Create new account',
+              text: 'Get Started',
             ),
             SizedBox(
-              height: 3.h,
+              height: 1.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +89,7 @@ class _EntryPointScreenState extends State<EntryPointScreen> {
                   // padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Text(
                     'Already have an account?',
-                    style: TextStyle(color: greyishWhite, fontSize: 12.sp),
+                    style: TextStyle(color: black, fontSize: 12.sp),
                   ),
                 ),
                 GestureDetector(
@@ -125,10 +141,10 @@ class Button extends StatelessWidget {
           decoration: BoxDecoration(
             // color: darkblue,
             gradient: gradient,
-            // border: Border.all(color: greyishWhite, width: 2.0),
-            borderRadius: BorderRadius.circular(20),
+            // border: Border.all(color: black, width: 2.0),
+            borderRadius: BorderRadius.circular(10),
           ),
-          child: Text(text, style: TextStyle(fontSize: 16.sp, color: black))),
+          child: Text(text, style: TextStyle(fontSize: 13.sp, color: black, fontWeight: FontWeight.bold))),
     ));
   }
 }

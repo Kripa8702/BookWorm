@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "203442651211",
-    "project_id": "kimber-ec38e",
-    "storage_bucket": "kimber-ec38e.appspot.com"
+    "project_number": "783787374436",
+    "project_id": "bookworm-b2d85",
+    "storage_bucket": "bookworm-b2d85.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:203442651211:android:8e6d08197b380357b5cdce",
+        "mobilesdk_app_id": "1:783787374436:android:3f16728d8c4987a1a56c71",
         "android_client_info": {
-          "package_name": "com.example.kimber"
+          "package_name": "com.example.book_worm"
         }
       },
       "oauth_client": [
         {
-          "client_id": "203442651211-vlqrhtmcdvbctoh6qk59mgu3ae6f4iap.apps.googleusercontent.com",
+          "client_id": "783787374436-mlkvnpemcho7oddutnp66lcqhmiii2l2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC1QoNpjP5ZeUV_Rp--aNpyOn682rDao9w"
+          "current_key": "AIzaSyB6sSr0URak6EsG39tK0pYcNxy-3Olrpl4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "203442651211-vlqrhtmcdvbctoh6qk59mgu3ae6f4iap.apps.googleusercontent.com",
+              "client_id": "783787374436-mlkvnpemcho7oddutnp66lcqhmiii2l2.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

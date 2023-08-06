@@ -1,50 +1,49 @@
-import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class UserModel{
-  String userId;
-  String username;
-  String email;
-  String password;
-  String? profilePic;
-  List<String>? moodTags;
+class UserModel {
+  final String email;
+  final String username;
+  final String uid;
+  final String password;
+  final String location;
 
   UserModel({
-    required this.userId,
-    required this.username,
     required this.email,
+    required this.username,
+    required this.uid,
     required this.password,
-    this.profilePic,
-    this.moodTags,
-});
+    required this.location,
+  });
 
-  factory UserModel.fromJson(Map<String, dynamic> jsonData) {
+  Map<String, dynamic> toJson() => {
+    'username': username,
+    'uid': uid,
+    'email': email,
+    'password': password,
+    'location': location,
+  };
+
+  static UserModel fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+
     return UserModel(
-      userId: jsonData["userId"] != null ? jsonData["userId"] : "NA",
-      username: jsonData["username"] != null ? jsonData["username"] : "NA",
-      email: jsonData["email"] != null ? jsonData["email"] : "NA",
-      password: jsonData["password"] != null ? jsonData["password"] : "NA",
-      profilePic: jsonData["profilePic"] != null ? jsonData["profilePic"] : "NA",
-      moodTags: List<String>.from(jsonData["moodTags"]??[]) ,
+        email: snapshot['email'],
+        username: snapshot['username'],
+        uid: snapshot['uid'],
+        password: snapshot['password'],
+        location: snapshot['location'],
     );
   }
 
-  static Map<String, dynamic> toMap(UserModel userModel) => {
-    'userId': userModel.userId,
-    'username': userModel.username,
-    'email': userModel.email,
-    'password': userModel.password,
-    'profilePic': userModel.profilePic,
-    'moodTags': userModel.moodTags,
-  };
-
-  static String encode(var users) => json.encode(
-    users
-        .map<Map<String, dynamic>>((user) => UserModel.toMap(user))
-        .toList(),
-  );
-
-  static List<UserModel> decode(String users) =>
-      (json.decode(users) as List<dynamic>)
-          .map<UserModel>((user) => UserModel.fromJson(user))
-          .toList();
+//   static String encode(var users) => json.encode(
+//     users
+//         .map<Map<String, dynamic>>((user) => UserModel.toMap(user))
+//         .toList(),
+//   );
+//
+//   static List<UserModel> decode(String users) =>
+//       (json.decode(users) as List<dynamic>)
+//           .map<UserModel>((user) => UserModel.fromJson(user))
+//           .toList();
+// }
 }

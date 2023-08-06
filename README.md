@@ -1,9 +1,6 @@
-# Kimber
 
-A platform where you can share your ideas and connect with like-minded people.
+# BookWorm
 
-## App Screenshots
+A platform where book worms can share their book reviews and exchange books. 
 
-<pre> 
-<img src=https://github.com/Kripa8702/Kimber-Frontend/blob/master/logo.jpeg height="400">  <img src=https://github.com/Kripa8702/Kimber-Frontend/blob/master/welcome.jpeg height="400">  <img src=https://github.com/Kripa8702/Kimber-Frontend/blob/master/signUp.jpeg height="400">  <img src=https://github.com/Kripa8702/Kimber-Frontend/blob/master/home.jpeg height="400">  <img src=https://github.com/Kripa8702/Kimber-Frontend/blob/master/profile.jpeg height="400">
-</pre>
+

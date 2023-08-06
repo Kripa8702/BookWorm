@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kimber/utils/colors.dart';
+import 'package:book_worm/utils/colors.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:sizer/sizer.dart';
 

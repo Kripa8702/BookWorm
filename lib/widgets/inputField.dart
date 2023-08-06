@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:kimber/utils/colors.dart';
+import 'package:book_worm/utils/colors.dart';
 import 'package:sizer/sizer.dart';
 
 class InputField extends StatefulWidget {
   TextEditingController controller;
   String fieldType;
+  String hint;
   bool? isObscure = false;
+  bool? isChat = false;
+  TextCapitalization? textCapitalization = TextCapitalization.none;
 
   InputField(
       {Key? key,
       required this.controller,
       required this.fieldType,
-      this.isObscure})
+      required this.hint,
+      this.isObscure,
+      this.isChat,
+      this.textCapitalization,
+      })
       : super(key: key);
 
   @override
@@ -23,58 +30,65 @@ class _InputFieldState extends State<InputField> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
+        if(!(widget.isChat??false))
+          Container(
             margin: EdgeInsets.only(top: 3.h, left: 5.w),
             alignment: Alignment.centerLeft,
             child: Text(
               widget.fieldType,
               style: TextStyle(
-                fontSize: 16.sp,
-                color: greenAccent,
+                fontSize: 13.sp,
+                color: black,
               ),
             )),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 3.w),
+          margin: EdgeInsets.symmetric(vertical: 1.h, horizontal: 3.w),
           child: TextFormField(
             controller: widget.controller,
-            cursorColor: greenAccent,
+            textCapitalization: widget.textCapitalization??TextCapitalization.none,
+            cursorColor: blueAccent,
             obscureText: widget.isObscure ?? false,
             onChanged: (_) => setState(() {}),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'This is a required field';
-              } else if (widget.isObscure ?? false) if (value.length < 10) {
+              } else if (widget.isObscure ?? false) if (value.length < 6) {
                 return 'Password is too short';
               }
               return null;
             },
             style: TextStyle(
               fontSize: 14.sp,
-              color: greenAccent,
+              color: blueAccent,
             ),
             decoration: InputDecoration(
+              hintText: widget.hint,
+              hintStyle: TextStyle(
+                fontSize: 13.sp,
+                // color: blueAccent,
+              ),
               filled: true,
               fillColor: borderColor,
               isDense: true,
               contentPadding:
-                  EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
+                  EdgeInsets.symmetric(horizontal: 3.w, vertical: 10),
               border: InputBorder.none,
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
-                  width: 2.0,
-                  color: black,
+                  width: 1.0,
+                  color: Colors.grey,
                 ), // BorderSide
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
                   width: 2.0,
                   color: black,
                 ), // BorderSide
               ),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
                   width: 2.0,
                   color: black,
@@ -82,10 +96,10 @@ class _InputFieldState extends State<InputField> {
               ),
               // OutlineInputBorder
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
                   width: 2.0,
-                  color: greenAccent,
+                  color: blueAccent,
                 ),
               ),
             ),
