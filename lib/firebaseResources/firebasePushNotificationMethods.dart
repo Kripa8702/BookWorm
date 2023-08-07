@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:book_worm/models/userModel.dart';
 import 'package:book_worm/providers/userProvider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -13,10 +14,11 @@ import 'package:provider/provider.dart';
 
 class FirebaseNotificationMethods {
   final _firebaseMessaging = FirebaseMessaging.instance;
-  
+  String NOTIFICATION_TOKEN = dotenv.env['NOTIFICATION_TOKEN'] ?? "";
+
   final _androidChannel = const AndroidNotificationChannel(
-      'high_importance_channel',
-      'High Importance Notifications',
+    'high_importance_channel',
+    'High Importance Notifications',
     description: 'This channel is used for important notifications',
     importance: Importance.defaultImportance,
   );
@@ -30,10 +32,8 @@ class FirebaseNotificationMethods {
     print(message.data);
     print(message.data['route']);
     print(message.data['exchangeId']);
-    Navigator.of(context).pushNamed(
-        message.data['route'].toString(),
-        arguments: message
-    );
+    Navigator.of(context)
+        .pushNamed(message.data['route'].toString(), arguments: message);
     // navigatorKey.currentState?.pushNamed(
     //     '/notification',
     //     arguments: message
@@ -42,20 +42,16 @@ class FirebaseNotificationMethods {
 
   Future<void> initLocalNotification(BuildContext context) async {
     const android = AndroidInitializationSettings('@drawable/ic_notification');
-    const settings = InitializationSettings(
-      android: android
-    );
+    const settings = InitializationSettings(android: android);
 
-    await _localNotifications.initialize(
-      settings,
-      onSelectNotification: (payload){
-        final message = RemoteMessage.fromMap(jsonDecode(payload!));
-        handleMessage(context, message);
-      }
-    );
+    await _localNotifications.initialize(settings,
+        onSelectNotification: (payload) {
+      final message = RemoteMessage.fromMap(jsonDecode(payload!));
+      handleMessage(context, message);
+    });
 
-    final platform = _localNotifications.resolvePlatformSpecificImplementation
-      <AndroidFlutterLocalNotificationsPlugin>();
+    final platform = _localNotifications.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
 
     await platform?.createNotificationChannel(_androidChannel);
   }
@@ -79,22 +75,18 @@ class FirebaseNotificationMethods {
 
     FirebaseMessaging.onMessage.listen((message) {
       final notification = message.notification;
-      if(notification == null) return;
+      if (notification == null) return;
 
       _localNotifications.show(
           notification.hashCode,
           notification.title,
           notification.body,
           NotificationDetails(
-            android: AndroidNotificationDetails(
-              _androidChannel.id,
-              _androidChannel.name,
-              channelDescription: _androidChannel.description,
-              icon: '@drawable/ic_notification'
-            )
-          ),
-          payload: jsonEncode(message.toMap())
-      );
+              android: AndroidNotificationDetails(
+                  _androidChannel.id, _androidChannel.name,
+                  channelDescription: _androidChannel.description,
+                  icon: '@drawable/ic_notification')),
+          payload: jsonEncode(message.toMap()));
     });
   }
 
@@ -110,26 +102,25 @@ class FirebaseNotificationMethods {
     initLocalNotification(context);
   }
 
-  saveToken(String token, BuildContext context) async{
-    final UserModel user = Provider.of<UserProvider>(context, listen: false).getUser;
+  saveToken(String token, BuildContext context) async {
+    final UserModel user =
+        Provider.of<UserProvider>(context, listen: false).getUser;
     String uid = user.uid;
     print("UID : $uid");
-    await FirebaseFirestore.instance
-        .collection('userTokens')
-        .doc(uid)
-        .set({
-      'token' : token,
+    await FirebaseFirestore.instance.collection('userTokens').doc(uid).set({
+      'token': token,
     });
   }
 
-  sendPushMessage(String body, String title, String exchangeId, String route, String token) async {
+  sendPushMessage(String body, String title, String exchangeId, String route,
+      String token) async {
     try {
       await http.post(
         Uri.parse('https://fcm.googleapis.com/fcm/send'),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization':
-          'key=AAAAtn1eN2Q:APA91bHN7LjRIoATwT4aczhMXmVCin8jW6mmH3JpYpEmNTmv0aWem2RZRrDLq2MWGqGiCrMm1Slqt0Jargvf-w4if22QwM2rGLK-RzNgW7Y4375KeV5b_pRZ_4uyeUMyzKKT-z8e1PL4',
+              'key= $NOTIFICATION_TOKEN',
         },
         body: jsonEncode(
           <String, dynamic>{
@@ -139,8 +130,8 @@ class FirebaseNotificationMethods {
             },
             'priority': 'high',
             'data': <String, dynamic>{
-              'route' : route,
-              'exchangeId' : exchangeId,
+              'route': route,
+              'exchangeId': exchangeId,
               'click_action': 'FLUTTER_NOTIFICATION_CLICK',
               'id': '1',
               'status': 'done'
@@ -154,8 +145,6 @@ class FirebaseNotificationMethods {
       print("error push notification");
     }
   }
-
-
 
 // FirebaseMessaging.instance.getInitialMessage().then(handleMessage(context));
 // FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
