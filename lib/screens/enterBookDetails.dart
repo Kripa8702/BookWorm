@@ -111,7 +111,7 @@ class _EnterBookDetailsForExchangeState
       });
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const NavigationBarScreen(),
+          builder: (context) => NavigationBarScreen(),
         ),
       );
     } catch (e) {
@@ -155,11 +155,11 @@ class _EnterBookDetailsForExchangeState
     return post == null
         ? Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.black,
+              backgroundColor: white,
               automaticallyImplyLeading: false,
               title: GradientText('Upload Image of Book',
                   gradient: gradient,
-                  style: TextStyle(color: white, fontSize: 16.sp)),
+                  style: TextStyle(color: white, fontSize: 16.sp, fontWeight: FontWeight.bold)),
               centerTitle: false,
             ),
             body: Center(
@@ -190,7 +190,7 @@ class _EnterBookDetailsForExchangeState
           )
         : Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.black,
+              backgroundColor: white,
               automaticallyImplyLeading: false,
               title: GradientText('Book Details for Exchange',
                   gradient: gradient,
@@ -206,7 +206,7 @@ class _EnterBookDetailsForExchangeState
 
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const NavigationBarScreen(),
+                          builder: (context) => NavigationBarScreen(),
                         ),
                       );
                     },

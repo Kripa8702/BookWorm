@@ -65,6 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(color: white, fontSize: 14.sp)
               ),
                 onTap: () async {
+                  Provider. of<UserProvider>(context).dispose();
+
                   await AuthMethods().signOut();
                   Navigator.of(context).push(
                     MaterialPageRoute(

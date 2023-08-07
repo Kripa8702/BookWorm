@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
             routes: {
               '/home': (context) => NavigationBarScreen(),
               NotificationScreen.route : (context) => const NotificationScreen(),
-              AllChatsScreen.route : (context) => const AllChatsScreen()
+              '/chats' : (context) => NavigationBarScreen(index: 2,)
             },
             home: SplashScreen(),
           ),

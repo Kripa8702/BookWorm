@@ -67,7 +67,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       });
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const NavigationBarScreen(),
+          builder: (context) => NavigationBarScreen(),
         ),
       );
     } catch (e) {

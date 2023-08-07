@@ -1,14 +1,18 @@
 import 'package:book_worm/firebaseResources/storageMethods.dart';
 import 'package:book_worm/models/userModel.dart';
+import 'package:book_worm/providers/userProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<UserModel> getCurrentUser() async {
+    print(_auth.currentUser!.uid);
     DocumentSnapshot snap =
     await _firestore.collection('users').doc(_auth.currentUser!.uid).get();
 

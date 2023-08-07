@@ -50,7 +50,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
     String title = "Request Accepted!";
     String body =
-        "Your book exchange request has been accepted by ${exchangeModel.book1.username}";
+        "Your book exchange request has been accepted by ${exchangeModel.book1.username}. Chat with ${exchangeModel.book1.username}'s to know more";
 
     //Send notification
     await FirebaseNotificationMethods()
@@ -63,7 +63,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const NavigationBarScreen(),
+        builder: (context) => NavigationBarScreen(),
       ),
     );
 
@@ -215,7 +215,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const NavigationBarScreen()),
+                              builder: (context) => NavigationBarScreen()),
                         );
                       },
                       child: Container(

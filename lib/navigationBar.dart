@@ -17,7 +17,8 @@ import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 import 'screens/navigation/allChatsScreen.dart';
 
 class NavigationBarScreen extends StatefulWidget {
-  const NavigationBarScreen({Key? key}) : super(key: key);
+  int? index = 0;
+  NavigationBarScreen({Key? key, this.index}) : super(key: key);
 
   @override
   State<NavigationBarScreen> createState() => _NavigationBarScreenState();
@@ -36,8 +37,10 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
   @override
   initState() {
     super.initState();
-
-    pageController = PageController();
+    selected = widget.index??0;
+    pageController = PageController(
+      initialPage: widget.index??0
+    );
     addData();
   }
 

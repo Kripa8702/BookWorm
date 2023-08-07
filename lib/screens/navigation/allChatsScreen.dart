@@ -153,23 +153,21 @@ class _AllChatsScreenState extends State<AllChatsScreen> {
           ),
           height: 8.h,
           padding: const EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
-          child: Expanded(
-            child: Container(
-              color: Colors.transparent,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  const Icon(
-                    Icons.person_outline_rounded,
-                    color: blueAccent,
-                  ),
-                  SizedBox(
-                    width: 2.w,
-                  ),
-                  Text(data['username'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                  // Text(widget.messageText,style: TextStyle(fontSize: 13,color: Colors.grey.shade600, fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
-                ],
-              ),
+          child: Container(
+            color: Colors.transparent,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                const Icon(
+                  Icons.person_outline_rounded,
+                  color: blueAccent,
+                ),
+                SizedBox(
+                  width: 2.w,
+                ),
+                Text(data['username'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                // Text(widget.messageText,style: TextStyle(fontSize: 13,color: Colors.grey.shade600, fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
+              ],
             ),
           ),
         ),
