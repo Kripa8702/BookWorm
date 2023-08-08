@@ -1,15 +1,7 @@
-import 'package:book_worm/firebaseResources/firebasePushNotificationMethods.dart';
 import 'package:book_worm/models/postModel.dart';
-import 'package:book_worm/models/userModel.dart';
-import 'package:book_worm/providers/userProvider.dart';
 import 'package:book_worm/screens/bookReviewDetailsScreen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:glassmorphism_ui/glassmorphism_ui.dart';
-import 'package:book_worm/functions/userApiCalls.dart';
 import 'package:book_worm/utils/colors.dart';
-import 'package:book_worm/widgets/actionButton.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class PostCard extends StatefulWidget {

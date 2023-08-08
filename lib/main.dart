@@ -1,8 +1,5 @@
-import 'package:book_worm/firebaseResources/firebasePushNotificationMethods.dart';
 import 'package:book_worm/providers/userProvider.dart';
-import 'package:book_worm/screens/navigation/allChatsScreen.dart';
 import 'package:book_worm/screens/notificationScreen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:book_worm/navigationBar.dart';

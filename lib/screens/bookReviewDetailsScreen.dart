@@ -30,17 +30,16 @@ class _BookReviewDetailsScreenState extends State<BookReviewDetailsScreen> {
                   color: greenAccent.withOpacity(0.2),
                 ),
                 Positioned(
-                  top: 3.h,
+                    top: 3.h,
                     child: IconButton(
                       icon: Icon(
                         Icons.arrow_back_rounded,
                         color: black,
                       ),
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pop(context);
                       },
-                    )
-                ),
+                    )),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.only(top: 9.h),
@@ -63,16 +62,18 @@ class _BookReviewDetailsScreenState extends State<BookReviewDetailsScreen> {
                 children: [
                   Text(
                     widget.postModel.genre,
-                    style: TextStyle(fontSize: 12.sp,
-                    fontWeight: FontWeight.bold,
-                    color: blueAccent),
+                    style: TextStyle(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.bold,
+                        color: blueAccent),
                   ),
                   SizedBox(
                     height: 2.h,
                   ),
                   Text(
                     widget.postModel.title,
-                    style: TextStyle(fontSize: 16.sp,
+                    style: TextStyle(
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -81,9 +82,10 @@ class _BookReviewDetailsScreenState extends State<BookReviewDetailsScreen> {
                   ),
                   Text(
                     "DESCRIPTION",
-                    style: TextStyle(fontSize: 10.sp,
-                    color: textGrey,
-                    fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 10.sp,
+                        color: textGrey,
+                        fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 1.h,
@@ -95,7 +97,6 @@ class _BookReviewDetailsScreenState extends State<BookReviewDetailsScreen> {
                 ],
               ),
             ),
-
             widget.postModel.exchange
                 ? Button(
                     text: "Exchange",
@@ -128,21 +129,22 @@ class _BookReviewDetailsScreenState extends State<BookReviewDetailsScreen> {
                 children: [
                   Text(
                     "SIMILAR BOOKS",
-                    style: TextStyle(fontSize: 10.sp,
+                    style: TextStyle(
+                        fontSize: 10.sp,
                         color: textGrey,
                         fontWeight: FontWeight.bold),
                   ),
                   Spacer(),
                   Text(
                     "View all",
-                    style: TextStyle(fontSize: 10.sp,
+                    style: TextStyle(
+                        fontSize: 10.sp,
                         color: blueAccent,
                         fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
-            
             Container(
               height: 18.h,
               alignment: Alignment.center,
@@ -150,10 +152,14 @@ class _BookReviewDetailsScreenState extends State<BookReviewDetailsScreen> {
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 children: [
-                  books("https://i.guim.co.uk/img/media/51e82d1479c8bec3fbf6e620f44199490171ac66/433_134_1145_1723/master/1145.jpg?width=140&dpr=2&s=none"),
-                  books("https://hips.hearstapps.com/digitalspyuk.cdnds.net/15/50/1449878132-9781781100264.jpg?resize=980:*"),
-                  books("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPDiJuC5_sk74dU9GfxwigDuuWTqAn54hEjQ&usqp=CAU"),
-                  books("https://d1csarkz8obe9u.cloudfront.net/posterpreviews/contemporary-fiction-night-time-book-cover-design-template-1be47835c3058eb42211574e0c4ed8bf_screen.jpg?ts=1637012564"),
+                  books(
+                      "https://i.guim.co.uk/img/media/51e82d1479c8bec3fbf6e620f44199490171ac66/433_134_1145_1723/master/1145.jpg?width=140&dpr=2&s=none"),
+                  books(
+                      "https://hips.hearstapps.com/digitalspyuk.cdnds.net/15/50/1449878132-9781781100264.jpg?resize=980:*"),
+                  books(
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPDiJuC5_sk74dU9GfxwigDuuWTqAn54hEjQ&usqp=CAU"),
+                  books(
+                      "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/contemporary-fiction-night-time-book-cover-design-template-1be47835c3058eb42211574e0c4ed8bf_screen.jpg?ts=1637012564"),
                 ],
               ),
             )
@@ -162,9 +168,9 @@ class _BookReviewDetailsScreenState extends State<BookReviewDetailsScreen> {
       ),
     );
   }
-  
-  Widget books (String image){
-    return  Container(
+
+  Widget books(String image) {
+    return Container(
       alignment: Alignment.center,
       margin: EdgeInsets.only(right: 1.w),
       child: Image.network(
@@ -174,13 +180,12 @@ class _BookReviewDetailsScreenState extends State<BookReviewDetailsScreen> {
         fit: BoxFit.fitHeight,
       ),
     );
-
   }
 }
 
 class Button extends StatelessWidget {
-  String text;
-  PostModel postModel;
+  final String text;
+  final PostModel postModel;
 
   Button({
     Key? key,
@@ -191,30 +196,32 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
+        alignment: Alignment.center,
         child: GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => EnterBookDetailsForExchange(
-                    postModel: postModel,
-                  )),
-        );
-      },
-      child: Container(
-          height: 6.h,
-          margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            // color: darkblue,
-            gradient: gradient,
-            // border: Border.all(color: black, width: 2.0),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Text(text,
-              style: TextStyle(
-                  fontSize: 13.sp, color: white, fontWeight: FontWeight.bold))),
-    ));
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => EnterBookDetailsForExchange(
+                        postModel: postModel,
+                      )),
+            );
+          },
+          child: Container(
+              height: 6.h,
+              margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                // color: darkblue,
+                gradient: gradient,
+                // border: Border.all(color: black, width: 2.0),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(text,
+                  style: TextStyle(
+                      fontSize: 13.sp,
+                      color: white,
+                      fontWeight: FontWeight.bold))),
+        ));
   }
 }

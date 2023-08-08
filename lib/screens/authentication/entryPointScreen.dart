@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:book_worm/screens/authentication/loginScreen.dart';
 import 'package:book_worm/screens/authentication/signUpScreen.dart';
 import 'package:book_worm/utils/colors.dart';
-import 'package:book_worm/widgets/actionButton.dart';
 import 'package:sizer/sizer.dart';
 
 class EntryPointScreen extends StatefulWidget {
@@ -22,7 +21,7 @@ class _EntryPointScreenState extends State<EntryPointScreen> {
   }
 
   changeOpacity() {
-    Future.delayed(Duration(milliseconds: 1300), () {
+    Future.delayed(const Duration(milliseconds: 1300), () {
       setState(() {
         opacity = 1.0;
         changeOpacity();
@@ -35,30 +34,32 @@ class _EntryPointScreenState extends State<EntryPointScreen> {
     return Scaffold(
         backgroundColor: white,
         body: SingleChildScrollView(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
+          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             Container(
               margin: EdgeInsets.symmetric(horizontal: 10.w),
               alignment: Alignment.centerLeft,
               height: 20.h,
               child: Image.asset(
                 'assets/icons/Logo.png',
-                ),
+              ),
             ),
-            Container(
+            SizedBox(
               // margin: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
               height: 40.h,
               child: Image.asset(
                 'assets/icons/Frame.png',
-                height: 7.h,),
+                height: 7.h,
+              ),
             ),
             Container(
                 padding: EdgeInsets.only(left: 10.w, right: 20.w),
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Welcome to BookWorm.',
-                  style: TextStyle(color: black, fontSize: 28.sp, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: black,
+                      fontSize: 28.sp,
+                      fontWeight: FontWeight.bold),
                 )),
             AnimatedOpacity(
               opacity: opacity,
@@ -103,7 +104,9 @@ class _EntryPointScreenState extends State<EntryPointScreen> {
                     child: Text(
                       ' Log in.',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: greenAccent, fontSize: 12.sp),
+                          fontWeight: FontWeight.bold,
+                          color: greenAccent,
+                          fontSize: 12.sp),
                     ),
                   ),
                 ),
@@ -115,8 +118,8 @@ class _EntryPointScreenState extends State<EntryPointScreen> {
 }
 
 class Button extends StatelessWidget {
-  Widget nextScreen;
-  String text;
+  final Widget nextScreen;
+  final String text;
 
   Button({
     Key? key,
@@ -144,7 +147,9 @@ class Button extends StatelessWidget {
             // border: Border.all(color: black, width: 2.0),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Text(text, style: TextStyle(fontSize: 13.sp, color: black, fontWeight: FontWeight.bold))),
+          child: Text(text,
+              style: TextStyle(
+                  fontSize: 13.sp, color: black, fontWeight: FontWeight.bold))),
     ));
   }
 }

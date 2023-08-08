@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class FunctionButton extends StatelessWidget {
-  BuildContext context;
-  void Function()? onTap;
-  String text;
-  Color bgColor;
+  final BuildContext context;
+  final void Function()? onTap;
+  final String text;
+  final Color bgColor;
 
   FunctionButton({
     super.key,
@@ -28,9 +28,9 @@ class FunctionButton extends StatelessWidget {
         decoration: BoxDecoration(
             color: bgColor, borderRadius: BorderRadius.circular(10)),
         child: Text(
-                text,
-                style: TextStyle(color: darkblue, fontSize: 13.sp),
-              ),
+          text,
+          style: TextStyle(color: darkblue, fontSize: 13.sp),
+        ),
       ),
     );
   }

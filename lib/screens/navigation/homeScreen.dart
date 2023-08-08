@@ -1,18 +1,12 @@
 import 'package:book_worm/firebaseResources/authMethods.dart';
-import 'package:book_worm/firebaseResources/firebasePushNotificationMethods.dart';
-import 'package:book_worm/models/userModel.dart';
 import 'package:book_worm/providers/userProvider.dart';
 import 'package:book_worm/screens/authentication/entryPointScreen.dart';
 import 'package:book_worm/widgets/bookWormLogo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:book_worm/models/postModel.dart';
 import 'package:book_worm/utils/colors.dart';
 import 'package:book_worm/widgets/postCard.dart';
-import 'package:book_worm/widgets/sideBar.dart';
 import 'package:provider/provider.dart';
-import 'package:sidebarx/sidebarx.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,12 +19,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final _key = GlobalKey<ScaffoldState>();
 
-
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _searchController = TextEditingController();
-    FocusScopeNode currentFocus = FocusScope.of(context);
-
     return GestureDetector(
       onPanUpdate: (details) {
         if (details.delta.dx > 0) {
@@ -56,16 +46,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ListTile(
                 title: Text('Change Location',
                     style: TextStyle(color: white, fontSize: 14.sp)),
-                onTap: () async {
-
-                },
+                onTap: () async {},
               ),
               ListTile(
                 title: Text('Sign Out',
-                    style: TextStyle(color: white, fontSize: 14.sp)
-              ),
+                    style: TextStyle(color: white, fontSize: 14.sp)),
                 onTap: () async {
-                  Provider. of<UserProvider>(context).dispose();
+                  Provider.of<UserProvider>(context).dispose();
 
                   await AuthMethods().signOut();
                   Navigator.of(context).push(
@@ -98,7 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Image.asset(
                           'assets/icons/Logo.png',
-                          height: 5.h,),
+                          height: 5.h,
+                        ),
                         BookWormLogo(fontSize: 22.sp),
                       ],
                     ),
@@ -106,21 +94,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 2.h,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 16,right: 16),
+                      padding: EdgeInsets.only(left: 16, right: 16),
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: "Search...",
                           hintStyle: TextStyle(color: Colors.grey.shade600),
-                          prefixIcon: Icon(Icons.search,color: Colors.grey.shade600, size: 20,),
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: Colors.grey.shade600,
+                            size: 20,
+                          ),
                           filled: true,
                           fillColor: Colors.grey.shade200,
                           contentPadding: EdgeInsets.all(8),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(
-                                  color: Colors.grey.shade100
-                              )
-                          ),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade100)),
                         ),
                       ),
                     ),
@@ -146,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             physics: const BouncingScrollPhysics(),
                             itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index) => PostCard(
-                              snap: snapshot.data!.docs[index]??"",
+                              snap: snapshot.data!.docs[index],
                             ),
                           ));
                         })

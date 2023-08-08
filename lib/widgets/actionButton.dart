@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:book_worm/utils/colors.dart';
-import 'package:sizer/sizer.dart';
 
-class ActionButton extends StatefulWidget {
-  Function onTap;
-  double height;
-  double width;
-  double radius;
+class ActionButton extends StatelessWidget {
+  final Function onTap;
+  final double height;
+  final double width;
+  final double radius;
   bool? isGlow = true;
-  Widget child;
+  final Widget child;
 
   ActionButton({
     Key? key,
@@ -21,17 +19,12 @@ class ActionButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ActionButton> createState() => _ActionButtonState();
-}
-
-class _ActionButtonState extends State<ActionButton> {
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap(),
+      onTap: onTap(),
       child: Container(
-          height: widget.height,
-          width: widget.width,
+          height: height,
+          width: width,
           alignment: Alignment.center,
           // decoration: BoxDecoration(
           //     // color: Color(0xFF00f7a7),
@@ -46,7 +39,7 @@ class _ActionButtonState extends State<ActionButton> {
           //         spreadRadius: 2.0,
           //       )
           //     ]),
-          child: widget.child),
+          child: child),
     );
   }
 }

@@ -1,8 +1,5 @@
 import 'package:book_worm/firebaseResources/authMethods.dart';
 import 'package:flutter/material.dart';
-import 'package:book_worm/functions/userApiCalls.dart';
-import 'package:book_worm/models/userModel.dart';
-import 'package:book_worm/screens/navigation/homeScreen.dart';
 import 'package:book_worm/utils/colors.dart';
 import 'package:book_worm/utils/utils.dart';
 import 'package:book_worm/widgets/inputField.dart';
@@ -39,13 +36,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (res != "success") {
       showSnackBar(res, context);
-    }
-    else {
+    } else {
       Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false);
-
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(
                       fontSize: 18.sp,
                       color: black,
-                      fontWeight: FontWeight.bold
-                  ),
+                      fontWeight: FontWeight.bold),
                 )),
             Expanded(
               child: Container(
@@ -128,7 +121,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       )
                     : Text(
                         'Log In',
-                        style: TextStyle(color: white, fontSize: 13.sp,
+                        style: TextStyle(
+                            color: white,
+                            fontSize: 13.sp,
                             fontWeight: FontWeight.bold),
                       ),
               ),

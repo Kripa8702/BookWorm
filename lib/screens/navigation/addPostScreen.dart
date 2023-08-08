@@ -12,7 +12,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:map_location_picker/map_location_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -54,11 +53,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
         loading = false;
       });
 
-      if (res == "success"){
-
+      if (res == "success") {
         showSnackBar('Posted!', context);
-      }
-      else {
+      } else {
         showSnackBar(res, context);
       }
 
@@ -88,7 +85,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
   String address = "null";
   String autocompletePlace = "null";
 
-
   @override
   void dispose() {
     super.dispose();
@@ -116,7 +112,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
               )
             : Text(
                 text,
-                style: TextStyle(color: white, fontSize: 13.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: white, fontSize: 13.sp, fontWeight: FontWeight.bold),
               ),
       ),
     );
@@ -172,7 +169,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
               automaticallyImplyLeading: false,
               title: GradientText('New Post',
                   gradient: gradient,
-                  style: TextStyle(color: white, fontSize: 18.sp, fontWeight: FontWeight.bold)),
+                  style: TextStyle(
+                      color: white,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold)),
               centerTitle: false,
               actions: [
                 IconButton(
@@ -191,11 +191,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
               children: [
                 loading
                     ? LinearProgressIndicator(
-                  color: blueAccent,
-                  backgroundColor: greenAccent.withOpacity(0.5),
-                )
+                        color: blueAccent,
+                        backgroundColor: greenAccent.withOpacity(0.5),
+                      )
                     : const Padding(padding: EdgeInsets.only(top: 0.0)),
-
                 Expanded(
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
@@ -215,14 +214,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           height: 40.h,
                           width: 50.w,
                           child: Container(
-                            alignment: Alignment.center,
+                              alignment: Alignment.center,
                               decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            image: DecorationImage(
-                                image: MemoryImage(post!),
-                                fit: BoxFit.fitHeight,
-                                alignment: FractionalOffset.center),
-                          )),
+                                borderRadius: BorderRadius.circular(5),
+                                image: DecorationImage(
+                                    image: MemoryImage(post!),
+                                    fit: BoxFit.fitHeight,
+                                    alignment: FractionalOffset.center),
+                              )),
                         ),
                         SizedBox(
                           height: 3.h,
@@ -238,7 +237,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                             decoration: InputDecoration(
                               hintText: 'Book title...',
                               isDense: true,
-                              contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 10),
                               hintStyle: TextStyle(
                                   color: Colors.black26, fontSize: 12.sp),
                               fillColor: greyishWhite,
@@ -315,16 +315,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           spacing: 5.0,
                           children: List<Widget>.generate(
                             genreOptions.length,
-                                (int index) {
+                            (int index) {
                               return ChoiceChip(
                                 label: Text(genreOptions[index]),
-                                labelStyle: _value == index? TextStyle(
-                                    color: white,
-                                    fontSize: 12.sp
-                                ) : TextStyle(
-                                    color: black,
-                                    fontSize: 12.sp
-                                ),
+                                labelStyle: _value == index
+                                    ? TextStyle(color: white, fontSize: 12.sp)
+                                    : TextStyle(color: black, fontSize: 12.sp),
                                 backgroundColor: CupertinoColors.systemGrey5,
                                 selectedColor: blueAccent,
                                 selected: _value == index,
@@ -333,7 +329,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
                                     _value = selected ? index : null;
                                     genre = genreOptions[index];
                                   });
-
                                 },
                               );
                             },

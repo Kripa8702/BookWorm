@@ -2,13 +2,11 @@ import 'dart:convert';
 
 import 'package:book_worm/models/userModel.dart';
 import 'package:book_worm/providers/userProvider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 
@@ -119,8 +117,7 @@ class FirebaseNotificationMethods {
         Uri.parse('https://fcm.googleapis.com/fcm/send'),
         headers: <String, String>{
           'Content-Type': 'application/json',
-          'Authorization':
-              'key= $NOTIFICATION_TOKEN',
+          'Authorization': 'key= $NOTIFICATION_TOKEN',
         },
         body: jsonEncode(
           <String, dynamic>{

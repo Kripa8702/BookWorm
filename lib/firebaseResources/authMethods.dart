@@ -1,11 +1,6 @@
-import 'package:book_worm/firebaseResources/storageMethods.dart';
 import 'package:book_worm/models/userModel.dart';
-import 'package:book_worm/providers/userProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -14,24 +9,22 @@ class AuthMethods {
   Future<UserModel> getCurrentUser() async {
     print(_auth.currentUser!.uid);
     DocumentSnapshot snap =
-    await _firestore.collection('users').doc(_auth.currentUser!.uid).get();
+        await _firestore.collection('users').doc(_auth.currentUser!.uid).get();
 
     return UserModel.fromSnap(snap);
   }
 
-  Future<String> signUp(
-      {required String email,
-        required String username,
-        required String password,
-        // required Uint8List file
-      }) async {
+  Future<String> signUp({
+    required String email,
+    required String username,
+    required String password,
+    // required Uint8List file
+  }) async {
     String res = "Some error occurred";
     try {
-      if (email.isNotEmpty ||
-          username.isNotEmpty ||
-          password.isNotEmpty
+      if (email.isNotEmpty || username.isNotEmpty || password.isNotEmpty
           // file != null
-      ) {
+          ) {
         //Register
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email.trim(), password: password.trim());
@@ -47,8 +40,7 @@ class AuthMethods {
             username: username.trim(),
             uid: cred.user!.uid,
             password: password.trim(),
-            location: ""
-        );
+            location: "");
 
         //Add to database
         await _firestore
@@ -103,7 +95,7 @@ class AuthMethods {
     return res;
   }
 
-  Future<void> signOut() async{
+  Future<void> signOut() async {
     await _auth.signOut();
   }
 }

@@ -2,12 +2,11 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:book_worm/widgets/bookWormLogo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:book_worm/functions/postApiCalls.dart';
 import 'package:book_worm/navigationBar.dart';
 import 'package:book_worm/screens/authentication/entryPointScreen.dart';
 import 'package:book_worm/utils/colors.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+// ignore: depend_on_referenced_packages
 import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -30,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
       } else {
         print('User is signed in!');
         setState(() {
-        isLoggedIn = true;
+          isLoggedIn = true;
         });
       }
     });
@@ -51,7 +50,8 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Image.asset(
                 'assets/icons/Logo.png',
-                height: 10.h,),
+                height: 10.h,
+              ),
               BookWormLogo(fontSize: 35.sp),
             ],
           ),

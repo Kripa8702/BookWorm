@@ -4,7 +4,7 @@ import 'package:sidebarx/sidebarx.dart';
 import 'package:sizer/sizer.dart';
 
 class SideBar extends StatelessWidget {
-  SidebarXController controller;
+  final SidebarXController controller;
   SideBar({Key? key, required this.controller}) : super(key: key);
 
   @override
@@ -26,9 +26,9 @@ class SideBar extends StatelessWidget {
         itemTextPadding: const EdgeInsets.only(left: 30),
         selectedItemTextPadding: const EdgeInsets.only(left: 30),
         itemDecoration: BoxDecoration(
-          // borderRadius: BorderRadius.circular(10),
-          // border: Border.all(color: black),
-        ),
+            // borderRadius: BorderRadius.circular(10),
+            // border: Border.all(color: black),
+            ),
         selectedItemDecoration: BoxDecoration(
           color: blueAccent,
           borderRadius: BorderRadius.circular(10),
@@ -52,49 +52,52 @@ class SideBar extends StatelessWidget {
         width: 50.w,
         margin: EdgeInsets.only(top: 8.h, bottom: 10.h),
         decoration: BoxDecoration(
-          color: darkblue,
-            borderRadius: BorderRadius.circular(20)
-        ),
+            color: darkblue, borderRadius: BorderRadius.circular(20)),
       ),
       headerDivider: Container(
           margin: EdgeInsets.only(top: 2.h, left: 2.w, right: 2.w),
-          child: Divider(color:  borderColor,
-              height: 1,
+          child: Divider(
+            color: borderColor,
+            height: 1,
           )),
-
       footerDivider: Container(
-          margin: EdgeInsets.only(bottom: 3.h,left: 2.w, right: 2.w),
+          margin: EdgeInsets.only(bottom: 3.h, left: 2.w, right: 2.w),
           child: Divider(color: borderColor, height: 1)),
-      headerBuilder: (context,extended){
+      headerBuilder: (context, extended) {
         return Container(
           margin: EdgeInsets.only(top: 2.h),
-
-          child:  SizedBox(
+          child: SizedBox(
             height: 100,
             child: CircleAvatar(
               radius: 30,
-              child: Image.asset("assets/icons/user.png",
-                height: 4.h,),
+              child: Image.asset(
+                "assets/icons/user.png",
+                height: 4.h,
+              ),
               backgroundColor: black,
             ),
-
           ),
         );
       },
-      toggleButtonBuilder: (context,extended){
+      toggleButtonBuilder: (context, extended) {
         return Container(
           margin: EdgeInsets.only(bottom: 5.h),
-
           child: GestureDetector(
-            onTap: (){
+            onTap: () {
               controller.toggleExtended();
             },
             child: SizedBox(
               height: 2.h,
               width: 10.w,
-              child: controller.extended?
-              Icon(Icons.arrow_back_ios_new,color: black,)
-              : Icon(Icons.arrow_forward_ios,color: black,),
+              child: controller.extended
+                  ? Icon(
+                      Icons.arrow_back_ios_new,
+                      color: black,
+                    )
+                  : Icon(
+                      Icons.arrow_forward_ios,
+                      color: black,
+                    ),
             ),
           ),
         );
@@ -121,6 +124,5 @@ class SideBar extends StatelessWidget {
         ),
       ],
     );
-
   }
 }

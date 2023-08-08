@@ -4,7 +4,7 @@ import 'package:book_worm/widgets/gradientText.dart';
 import 'package:sizer/sizer.dart';
 
 class BookWormLogo extends StatelessWidget {
-  double fontSize;
+  final double fontSize;
   BookWormLogo({Key? key, required this.fontSize}) : super(key: key);
 
   @override
@@ -13,12 +13,12 @@ class BookWormLogo extends StatelessWidget {
         margin: EdgeInsets.only(top: 1.h, left: 5.w),
         child: GradientText('BookWorm',
             gradient: gradient,
-            style: TextStyle(color: white, fontSize: fontSize, fontWeight: FontWeight.bold)
-        )
+            style: TextStyle(
+                color: white, fontSize: fontSize, fontWeight: FontWeight.bold))
         // Text(
         //   'BookWorm',
         //   style: TextStyle(color: white, fontSize: 28.sp),
         // )
-    );
+        );
   }
 }

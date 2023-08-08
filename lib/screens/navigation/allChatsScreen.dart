@@ -1,11 +1,9 @@
 import 'package:book_worm/firebaseResources/authMethods.dart';
 import 'package:book_worm/models/userModel.dart';
-import 'package:book_worm/providers/userProvider.dart';
 import 'package:book_worm/screens/navigation/chatScreen.dart';
 import 'package:book_worm/utils/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class AllChatsScreen extends StatefulWidget {
@@ -20,9 +18,8 @@ class AllChatsScreen extends StatefulWidget {
 class _AllChatsScreenState extends State<AllChatsScreen> {
   late UserModel userModel;
 
-  getUser() async{
+  getUser() async {
     userModel = await AuthMethods().getCurrentUser();
-
   }
 
   @override
@@ -30,86 +27,87 @@ class _AllChatsScreenState extends State<AllChatsScreen> {
     return Scaffold(
       body: SafeArea(
         child: FutureBuilder(
-          future: getUser(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: blueAccent,
-                ),
-              );
-            }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 16, right: 16, top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      const Text(
-                        "Conversations",
-                        style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 8, right: 8, top: 2, bottom: 2),
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: greenAccent.withOpacity(0.5),
-                        ),
-                        child: const Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.add,
-                              color: blueAccent,
-                              size: 20,
-                            ),
-                            SizedBox(
-                              width: 2,
-                            ),
-                            Text(
-                              "Add New",
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+            future: getUser(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: blueAccent,
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20, left: 16,right: 16),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: "Search...",
-                      hintStyle: TextStyle(color: Colors.grey.shade600),
-                      prefixIcon: Icon(Icons.search,color: Colors.grey.shade600, size: 20,),
-                      filled: true,
-                      fillColor: Colors.grey.shade200,
-                      contentPadding: EdgeInsets.all(8),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                              color: Colors.grey.shade100
-                          )
+                );
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 16, right: 16, top: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        const Text(
+                          "Conversations",
+                          style: TextStyle(
+                              fontSize: 32, fontWeight: FontWeight.bold),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(
+                              left: 8, right: 8, top: 2, bottom: 2),
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: greenAccent.withOpacity(0.5),
+                          ),
+                          child: const Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.add,
+                                color: blueAccent,
+                                size: 20,
+                              ),
+                              SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                "Add New",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20, left: 16, right: 16),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Search...",
+                        hintStyle: TextStyle(color: Colors.grey.shade600),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: Colors.grey.shade600,
+                          size: 20,
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey.shade200,
+                        contentPadding: EdgeInsets.all(8),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide:
+                                BorderSide(color: Colors.grey.shade100)),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                Expanded(child: _buildUserList()),
-              ],
-            );
-          }
-        ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  Expanded(child: _buildUserList()),
+                ],
+              );
+            }),
       ),
     );
-    ;
   }
 
   Widget _buildUserList() {
@@ -137,22 +135,22 @@ class _AllChatsScreenState extends State<AllChatsScreen> {
 
     if (userModel.username != data['username']) {
       return GestureDetector(
-        onTap: (){
+        onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => ChatScreen(receiverId: data['uid'] ?? "",
-              receiverName : data['username'] ?? ""),
+              builder: (context) => ChatScreen(
+                  receiverId: data['uid'] ?? "",
+                  receiverName: data['username'] ?? ""),
             ),
           );
         },
         child: Container(
           margin: EdgeInsets.symmetric(vertical: 1.h, horizontal: 5.w),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: white
-          ),
+              borderRadius: BorderRadius.circular(10), color: white),
           height: 8.h,
-          padding: const EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
           child: Container(
             color: Colors.transparent,
             child: Row(
@@ -165,7 +163,10 @@ class _AllChatsScreenState extends State<AllChatsScreen> {
                 SizedBox(
                   width: 2.w,
                 ),
-                Text(data['username'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                Text(
+                  data['username'],
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
                 // Text(widget.messageText,style: TextStyle(fontSize: 13,color: Colors.grey.shade600, fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
               ],
             ),

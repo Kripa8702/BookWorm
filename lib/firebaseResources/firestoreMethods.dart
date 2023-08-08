@@ -1,7 +1,6 @@
 import 'package:book_worm/firebaseResources/storageMethods.dart';
 import 'package:book_worm/models/exchangeModel.dart';
 import 'package:book_worm/models/postModel.dart';
-import 'package:book_worm/models/userModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
@@ -66,22 +65,22 @@ class FirestoreMethods {
 
   Future<String> postExchangeRequest(
     PostModel postModel1,
-      String uid,
-      Uint8List file,
-      String username,
-      String description,
-      String title,
-      String genre,
-      bool exchange,
-      bool sell,
-      bool rent,
+    String uid,
+    Uint8List file,
+    String username,
+    String description,
+    String title,
+    String genre,
+    bool exchange,
+    bool sell,
+    bool rent,
   ) async {
     String res = "Some error occurred";
     try {
       String postId = const Uuid().v1();
 
       String photoUrl =
-      await StorageMethods().uploadImageToStorage(file, 'posts', postId);
+          await StorageMethods().uploadImageToStorage(file, 'posts', postId);
 
       PostModel postModel2 = PostModel(
         description: description,
@@ -98,13 +97,12 @@ class FirestoreMethods {
 
       // _firestore.collection('posts').doc(postId).set(postModel2.toJson());
 
-
       String exchangeId = const Uuid().v1();
 
       ExchangeModel exchangeModel = ExchangeModel(
-          exchangeId: exchangeId,
-          book1: postModel1,
-          book2: postModel2,
+        exchangeId: exchangeId,
+        book1: postModel1,
+        book2: postModel2,
       );
 
       await _firestore

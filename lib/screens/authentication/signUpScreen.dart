@@ -1,12 +1,6 @@
-import 'dart:convert';
-
 import 'package:book_worm/firebaseResources/authMethods.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:book_worm/functions/userApiCalls.dart';
-import 'package:book_worm/models/userModel.dart';
-import 'package:book_worm/screens/authentication/pickProfilePictureScreen.dart';
 import 'package:book_worm/utils/colors.dart';
 import 'package:book_worm/utils/utils.dart';
 import 'package:book_worm/widgets/inputField.dart';
@@ -44,9 +38,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       loading = true;
     });
     String res = await AuthMethods().signUp(
-        email: emailController.text,
-        username: usernameController.text,
-        password: passwordController.text,
+      email: emailController.text,
+      username: usernameController.text,
+      password: passwordController.text,
     );
     print(res);
 
@@ -58,10 +52,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       showSnackBar(res, context);
     } else {
       Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false);
-
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +68,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Text(
                   'Sign Up ',
                   style: TextStyle(
-                    fontSize: 18.sp,
-                    color: black,
-                    fontWeight: FontWeight.bold
-                  ),
+                      fontSize: 18.sp,
+                      color: black,
+                      fontWeight: FontWeight.bold),
                 )),
             Expanded(
               child: Container(
@@ -88,7 +79,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   physics: BouncingScrollPhysics(),
                   child: Column(
                     children: [
-
                       SizedBox(
                         height: 3.5.h,
                       ),
@@ -101,7 +91,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 controller: usernameController,
                                 fieldType: 'Name',
                                 hint: "Enter full name",
-                                textCapitalization: TextCapitalization.sentences,
+                                textCapitalization:
+                                    TextCapitalization.sentences,
                               ),
 
                               //Email
@@ -109,7 +100,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 controller: emailController,
                                 fieldType: 'Email ID',
                                 hint: "Enter email address",
-
                               ),
 
                               //Password
@@ -118,7 +108,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 fieldType: 'Password',
                                 isObscure: true,
                                 hint: "Enter password",
-
                               ),
                               //Password
                               InputField(
@@ -126,7 +115,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 fieldType: 'Confirm Password',
                                 isObscure: true,
                                 hint: "Re-enter password",
-
                               ),
                             ],
                           )),
@@ -168,8 +156,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       )
                     : Text(
                         'Sign Up',
-                        style:
-                            TextStyle(color: white, fontSize: 13.sp,
+                        style: TextStyle(
+                            color: white,
+                            fontSize: 13.sp,
                             fontWeight: FontWeight.bold),
                       ),
               ),

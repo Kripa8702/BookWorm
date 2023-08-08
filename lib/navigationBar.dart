@@ -1,16 +1,10 @@
 import 'package:book_worm/firebaseResources/firebasePushNotificationMethods.dart';
-import 'package:book_worm/models/userModel.dart';
 import 'package:book_worm/providers/userProvider.dart';
 import 'package:book_worm/screens/navigation/addPostScreen.dart';
-import 'package:book_worm/screens/navigation/chatScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:book_worm/screens/navigation/homeScreen.dart';
 import 'package:book_worm/utils/colors.dart';
 import 'package:provider/provider.dart';
-import 'package:sizer/sizer.dart';
-import 'package:stylish_bottom_bar/model/bar_items.dart';
-import 'package:stylish_bottom_bar/model/bar_items.dart';
-import 'package:stylish_bottom_bar/model/bar_items.dart';
 import 'package:stylish_bottom_bar/model/bar_items.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
@@ -37,10 +31,8 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
   @override
   initState() {
     super.initState();
-    selected = widget.index??0;
-    pageController = PageController(
-      initialPage: widget.index??0
-    );
+    selected = widget.index ?? 0;
+    pageController = PageController(initialPage: widget.index ?? 0);
     addData();
   }
 
@@ -104,7 +96,6 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                 selectedColor: darkBlueAccent,
                 unSelectedColor: black,
                 title: const Text('Profile')),
-
           ],
           backgroundColor: greenAccent,
           elevation: 200,
@@ -115,7 +106,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
           currentIndex: selected,
           onTap: (index) {
             setState(() {
-              selected = index!;
+              selected = index;
               pageController.jumpToPage(index);
             });
           },
